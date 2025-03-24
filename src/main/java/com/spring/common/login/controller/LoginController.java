@@ -30,16 +30,7 @@ public class LoginController {
      */
     @GetMapping("/loginPage")
     public String login() {
-        return "login/login";
-    }
-
-    /**
-     * 홈 페이지
-     * @return
-     */
-    @GetMapping("/home")
-    public String home() {
-        return "home";
+        return "login/loginPage";
     }
 
     /**
@@ -49,7 +40,7 @@ public class LoginController {
      */
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
-        request.getSession().invalidate();
+//        request.getSession().invalidate();
         return "redirect:/login?logout";
     }
 }
