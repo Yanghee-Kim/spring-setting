@@ -12,12 +12,13 @@ public class LogTestController {
 	@GetMapping("/log-test")
     public String testLog() {
 		
-		System.out.print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+log.getClass().getName());
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+log.getName());
 		
         log.debug("🔥 DEBUG 로그입니다");
         log.info("✅ INFO 로그입니다");
         log.warn("⚠️ WARN 로그입니다");
         log.error("❌ ERROR 로그입니다");
+        
         return "로그 테스트 완료";
     }
 }

@@ -59,5 +59,13 @@ public class UserService {
         sqlSession.insert("userMapper.insertUser", user);
 
     }
+    
+    /**
+     * 테스트
+     */
+    public void selectUser() {
+        sqlSession.selectList("userMapper.selectUser");
+
+    }
 
 }

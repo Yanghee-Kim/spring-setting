@@ -10,7 +10,7 @@
         	 , email
         	 , role
           FROM users
-         WHERE username = #{username}
+<!--          WHERE username = #{username} -->
     </select>
     
     <insert id="insertUser">

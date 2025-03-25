@@ -62,4 +62,14 @@ public class UserController {
     public void testTx() {
         userService.insertUserTest();
     }
+    
+    /**
+     * 테스트
+     * @param inParams
+     * @return
+     */
+    @GetMapping("/selectUser")
+    public void selectUser() {
+        userService.selectUser();
+    }
 }
