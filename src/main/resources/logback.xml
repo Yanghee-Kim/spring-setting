@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-<!-- logback.xml : 기본적으로 경로 탐색을 안함 -->
-	
+
     <!-- 콘솔 로그 출력 설정 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -9,43 +8,65 @@
         </encoder>
     </appender>
 
-	<!-- 프로젝트 소스 관련 -->
-   	<logger name="com.spring" level="DEBUG" additivity="false" appender-ref="console"></logger>
-	
-	<!-- 스프링 내부 관련 -->
-	<logger name="org.springframework.beans" level="ERROR" additivity="false" appender-ref="console"></logger>
-	
-	<logger name="org.springframework.jndi" level="ERROR" additivity="false" appender-ref="console"></logger>
-	
-	<logger name="org.springframework.context.support" level="INFO" additivity="false" appender-ref="console"></logger>
-	
-    <logger name="org.springframework.web.servlet.DispatcherServlet" level="ERROR" additivity="false" appender-ref="console"></logger>
-    
-	<logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="ERROR" additivity="false" appender-ref="console"></logger>
-	
-	<!-- Spring 트랜잭션 관리 로그 -->
-    <logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="DEBUG" additivity="false" appender-ref="console"></logger>
+    <!-- 프로젝트 소스 관련 -->
+    <logger name="com.spring" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
 
-	<!-- MyBatis SQL 실행 로그 -->
-	<logger name="org.apache.ibatis" level="DEBUG" additivity="false" appender-ref="console"></logger>
-	
-	<!-- MyBatis + Spring 연동 로그 -->
-	<logger name="org.mybatis.spring" level="DEBUG" additivity="false" appender-ref="console"></logger>
-	
-	<!-- SQL 실행 로그 (실제 실행된 SQL + 바인딩된 값) -->
-	<logger name="jdbc.sqlonly" level="DEBUG" additivity="false" appender-ref="console"></logger>
-	
-	<!-- SQL 실행 시간 (쿼리 성능 분석) -->
-<!-- 	<logger name="jdbc.sqltiming" level="DEBUG" additivity="false" appender-ref="console"></logger> -->
-	
-	<!-- JDBC Connection 상태 로그 -->
-<!-- 	<logger name="jdbc.connection" level="DEBUG" additivity="false" appender-ref="console"></logger> -->
-	
-	<!-- 트랜잭션 로그 (Commit/Rollback) -->
-	<logger name="jdbc.transaction" level="DEBUG" additivity="false" appender-ref="console"></logger>
-		
-	<!-- connection pool -->
-	<logger name="com.zaxxer" level="DEBUG" additivity="false" appender-ref="console"></logger>
+    <!-- 스프링 내부 관련 -->
+    <logger name="org.springframework.beans" level="ERROR" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="org.springframework.jndi" level="ERROR" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="org.springframework.context.support" level="INFO" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="org.springframework.web.servlet.DispatcherServlet" level="ERROR" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="_org.springframework.web.servlet.HandlerMapping.Mappings" level="ERROR" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <!-- Spring 트랜잭션 관리 로그 -->
+    <logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <!-- SQL Logger -->
+    <logger name="log4jdbc" level="WARN" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="jdbc.connection" level="WARN" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="jdbc.audit" level="WARN" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="jdbc.resultset" level="WARN" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="jdbc.sqlonly" level="OFF" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="jdbc.resultsettable" level="OFF" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="jdbc.sqltiming" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
 
     <!-- 기본 로그 레벨 설정 -->
     <root level="DEBUG">

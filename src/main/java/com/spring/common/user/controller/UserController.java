@@ -64,7 +64,7 @@ public class UserController {
     }
     
     /**
-     * 테스트
+     * sql logger 테스트
      * @param inParams
      * @return
      */
