@@ -34,7 +34,6 @@
         <appender-ref ref="console"/>
     </logger>
 
-    <!-- Spring 트랜잭션 관리 로그 -->
     <logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="DEBUG" additivity="false">
         <appender-ref ref="console"/>
     </logger>

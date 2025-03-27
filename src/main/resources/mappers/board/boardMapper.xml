@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boardMapper">
+
+    <select id="boardList" resultType="HMap">
+	select id
+		 , title
+	     , writer
+	     , content
+	     , date_format(reg_dtm, '%Y-%m-%d %H:%i:%s') as reg_dtm
+	     , date_format(reg_dtm, '%Y-%m-%d %H:%i:%s') as upd_dtm
+	     , view_count
+	     , is_deleted
+	  from board
+	 where 1=1
+	   and is_deleted = 0
+	  <if test="id != '' and id != null">
+	   and id = #{id}
+	  </if>
+    </select>
+    
+    <insert id="insertBoard">
+     insert 
+       into board (
+	      title
+	    , content
+	    , writer
+	  ) values (
+	      #{title}
+	    , #{content}
+	    , #{writer}
+	  )
+    </insert>
+    
+    <update id="updateBoard">
+    update board
+	   set title      = #{title}
+	     , content    = #{content}
+	     , writer     = #{writer}
+	     , upd_dtm    = now()
+	where id = #{id}
+    </update>
+    
+    <update id="deleteBoard">
+    update board
+	   set is_deleted = 1
+	where id = #{id}
+    </update>
+    
+    <update id="updateViewCount">
+    update board
+	   set view_count = #{view_count} + 1
+	where id = #{id}
+    </update>
+</mapper>
