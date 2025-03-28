@@ -30,7 +30,7 @@ function initGrid() {
         },
         {
             fieldName: "content",
-            dataType: "number",
+            dataType: "text",
         },
         {
             fieldName: "writer",

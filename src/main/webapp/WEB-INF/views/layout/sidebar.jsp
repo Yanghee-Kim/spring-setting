@@ -18,6 +18,9 @@
 	    <li class="list-group-item">
 	      <button onclick="movePage('/boardPage')">📝 게시판</button>
 	    </li>
+	    <li class="list-group-item">
+	      <button onclick="movePage('/filePage')">📝 파일업로드 / 다운로드</button>
+	    </li>
 	  </ul>
 	</div>
 </body>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fileMapper">
+
+	<select id="selectFileList" resultType="Hmap">
+	    SELECT id
+	    	 , original_name
+	    	 , saved_name
+	    	 , file_size
+	    	 , DATE_FORMAT(upload_date, '%Y-%m-%d %H:%i:%s') AS upload_date
+	    FROM file
+	</select>
+
+	<insert id="insertFile" parameterType="Hmap">
+	  INSERT 
+	    INTO file (
+	      original_name
+	    , saved_name
+	    , file_path
+	    , file_size
+	  ) VALUES (
+	      #{original_name}
+	    , #{saved_name}
+	    , #{file_path}
+	    , #{file_size}
+	  )
+	</insert>
+	
+	<delete id="deleteFile">
+	    DELETE 
+	      FROM file
+	     WHERE saved_name = #{saved_name}
+	</delete>
+</mapper>

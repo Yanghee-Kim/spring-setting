@@ -30,9 +30,9 @@
 <!--     <mvc:resources mapping="/resources/**" location="/resources/"/> -->
 
     <!-- File Resolver 설정 -->
-<!--     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
-<!--         <property name="maxUploadSize" value="5242880"/>  5MB 이하는 업로드 시 디스크에 저장 / 이상은 업로드 불가 -->
-<!--         <property name="maxInMemorySize" value="1048576"/>  1MB 이하는 업로드 시 메모리에 저장 -->
-<!--         <property name="defaultEncoding" value="utf-8" /> -->
-<!--     </bean> -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="5242880"/>  <!-- 5MB 이하는 업로드 시 디스크에 저장 / 이상은 업로드 불가 -->
+        <property name="maxInMemorySize" value="1048576"/>  <!-- 1MB 이하는 업로드 시 메모리에 저장 -->
+        <property name="defaultEncoding" value="utf-8" />
+    </bean>
 </beans>

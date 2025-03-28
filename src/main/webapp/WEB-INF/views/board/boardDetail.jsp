@@ -30,9 +30,8 @@ $(document).ready(function() {
 		$.ajax({
 			url: "/boardList",
 		    type: "post",
-		    contentType: "application/json",  // 요청 데이터 형식
-			dataType: "json",                 // 응답 데이터 형식
-		    data: JSON.stringify({id : boardId}),
+			dataType: "json", // 응답 데이터 형식
+		    data: {id : boardId},
 		    success: function(data) {
 	    	  $("#id").val(data[0].id);
 		      $("#title").val(data[0].title);		    
@@ -106,8 +105,7 @@ function updateViewCount() {
 	$.ajax({
 		url: "/updateViewCount",
 	    type: "post",
-	    contentType: "application/json",  // 요청 데이터 형식
-	    data: JSON.stringify({id : $("#id").val(), view_count : Number($("#view_count").val())}),
+	    data: {id : $("#id").val(), view_count : Number($("#view_count").val())},
 	    success: function(res) {
 	    },
 	    error: function() {

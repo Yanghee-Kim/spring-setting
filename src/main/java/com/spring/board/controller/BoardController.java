@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -62,7 +61,7 @@ public class BoardController {
 	 */
 	@PostMapping("/boardList")
 	@ResponseBody
-	public List<Map<String, Object>> boardList(@RequestBody(required = false) Map<String, Object> inParams) {
+	public List<Map<String, Object>> boardList(@RequestParam(required = false) Map<String, Object> inParams) {
 		return boardService.boardList(inParams);
 	}
 	
@@ -102,7 +101,7 @@ public class BoardController {
 	 */
 	@PostMapping("/updateViewCount")
 	@ResponseBody
-	public void updateViewCount(@RequestBody(required = false) Map<String, Object> inParams) {
+	public void updateViewCount(@RequestParam(required = false) Map<String, Object> inParams) {
 		boardService.updateViewCount(inParams);
 	}
 }

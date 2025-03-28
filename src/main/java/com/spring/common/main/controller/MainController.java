@@ -26,7 +26,7 @@ public class MainController {
     /**
      * 메인 페이지
      */
-    @GetMapping("/main")
+    @GetMapping("/")
     public ModelAndView main() {
         ModelAndView mav = new ModelAndView("main");
         return mav;
