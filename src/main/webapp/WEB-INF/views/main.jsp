@@ -66,7 +66,7 @@
         </div>
 
         <!-- Center -->
-        <div class="col-md-10 bg-white" id="centerArea">
+        <div class="col-md-10 bg-white" id="centerArea" style="overflow-y: scroll;">
             <%@ include file="/WEB-INF/views/layout/default.jsp" %>
         </div>
     </div>

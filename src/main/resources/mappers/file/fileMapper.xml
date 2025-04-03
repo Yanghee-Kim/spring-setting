@@ -11,6 +11,7 @@
 	    	 , file_size
 	    	 , DATE_FORMAT(upload_date, '%Y-%m-%d %H:%i:%s') AS upload_date
 	    FROM file
+	   WHERE del_yn = 'N'
 	</select>
 
 	<insert id="insertFile" parameterType="Hmap">
@@ -28,9 +29,9 @@
 	  )
 	</insert>
 	
-	<delete id="deleteFile">
-	    DELETE 
-	      FROM file
-	     WHERE saved_name = #{saved_name}
-	</delete>
+	<update id="deleteFile">
+	    UPDATE file
+		   SET del_yn = 'Y'
+		 WHERE id = #{id}
+	</update>
 </mapper>
