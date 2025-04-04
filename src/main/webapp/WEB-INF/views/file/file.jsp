@@ -7,7 +7,7 @@
 <h6>1. back : MultipartResolver 주입</h6>
 <h6>2. front : Form + enctype="multipart/form-data"</h6>
 <h6>3. front : Form 직접 제출 | Ajax 방식</h6>
-<h6>4. back : MultipartFile(단일/다중) | MultipartHttpServletRequest(다중/파일개수, 이름이 동적일 경우)</h6>
+<h6>4. back : MultipartFile | MultipartHttpServletRequest(동적으로 name이 달라질 수 있거나, 파일 개수가 유동적일 경우)</h6>
 
 <h6>다운로드</h6>
 <h6>1. Ajax + blob(파일로 인식하기 위해) + Common IO lib + a 태그</h6>
@@ -23,7 +23,7 @@
 </form>
 
 <h5>ajax 방식 + MultipartFile[]</h5>
-<form id="uploadForm" enctype="multipart/form-data">
+<form id="uploadForm">
   <div class="mb-3">
     <input type="file" id="fileInput" name="fileInput" class="form-control" style="width:500px;" multiple>
   </div>
@@ -219,6 +219,10 @@ function uploadFiles1() {
         alert("파일을 선택해주세요.");
         return;
     }
+    
+    if (files.length > 5) {
+        return "파일은 최대 5개까지만 업로드할 수 있습니다.";
+    }
 
     $('#progressBarContainer').empty(); // 진행바 영역 초기화
 
@@ -258,7 +262,10 @@ function uploadFiles1() {
             	if(res == "success"){          		
 	                $bar.removeClass("bg-success").addClass("bg-primary").text("완료");
 	                selectFileList();
-            	}
+            	} 
+//             	else {
+//             		alert(res);
+//             	}
             },
             error: function () {
                 $bar.removeClass("bg-success").addClass("bg-danger").text("실패");
@@ -296,8 +303,8 @@ function uploadFiles2() {
         url: "/fileUpload2",
         type: "post",
         data: formData,
-        processData: false,
-        contentType: false,
+        processData: false, // FormData는 가공하지 않고 그대로 전송
+        contentType: false, // 브라우저가 자동으로 multipart/form-data + boundary 설정하도록 함
         xhr: function () {
             const xhr = new XMLHttpRequest();
             xhr.upload.onprogress = function (e) {

@@ -5,8 +5,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +34,7 @@ public class FileService {
 	
 	private final SqlSessionTemplate sqlSession;
 	
+	// value : static 사용 불가
 	@Value("${file.upload.path}")
     private String uploadPath;
 	
@@ -103,7 +104,7 @@ public class FileService {
             fileInfo.put("file_size", fileSize);
             sqlSession.insert("fileMapper.insertFile", fileInfo);
             
-			return "file/file";
+			return "main";
 		} catch (IOException e) {
 			throw new RuntimeException("파일 업로드 중 오류가 발생했습니다." + e.getMessage(), e);
 		}
@@ -116,13 +117,22 @@ public class FileService {
 	 * @throws IOException
 	 */
 	public String saveFileUpload2(MultipartFile[] files) throws IOException {
-		if (files == null || files.length == 0) {
-			throw new IllegalArgumentException("업로드할 파일이 선택되지 않았습니다.");
-        }
+//		List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png", "pdf");
 		
 		try {
 			for(MultipartFile file : files) {
 				String originalName = file.getOriginalFilename();
+				
+				// 확장자 제한
+//				if (originalName == null || originalName.lastIndexOf('.') == -1) {
+//		            return "파일에 확장자가 없습니다.";
+//		        }
+//				
+//				String ext = originalName.substring(originalName.lastIndexOf('.') + 1).toLowerCase();
+//		        if (!allowedExtensions.contains(ext)) {
+//		            return "허용되지 않은 확장자입니다: " + ext;
+//		        }
+				
 	            String savedName = UUID.randomUUID() + "_" + originalName;
 	            long fileSize = file.getSize();
 
@@ -178,7 +188,7 @@ public class FileService {
 
 		            // 파일 저장
 		            File serverFile = new File(directory.getAbsolutePath() + File.separator + savedName);
-		            file.transferTo(serverFile);		            
+		            file.transferTo(serverFile);
 
 		            // db에 저장
 		            Map<String, Object> fileInfo = new HashMap<>();
@@ -216,9 +226,10 @@ public class FileService {
 	    response.setContentType("application/octet-stream;charset=UTF-8");
 	    response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(originalName, "UTF-8") + "\"");
 
+	    // try-with-resources 방식으로 (...) 에서 자동 close 처리함
 	    try (
 	    	BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-	    	BufferedOutputStream outStream = new BufferedOutputStream(response.getOutputStream())
+	    	BufferedOutputStream outStream = new BufferedOutputStream(response.getOutputStream());
 	    ) {
 	    	// 수동 복사 방식
 //	    	int length = 0;
@@ -231,6 +242,7 @@ public class FileService {
 	    	
 	    	// Apache Commons IO 라이브러리 사용
 	    	IOUtils.copy(inputStream, outStream);
+	    	outStream.flush();
 	    } catch(IOException e) {
 	    	throw new RuntimeException("파일 다운로드 중 오류가 발생했습니다." + e.getMessage(), e);
 		}
