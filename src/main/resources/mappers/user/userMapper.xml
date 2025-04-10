@@ -5,12 +5,15 @@
 <mapper namespace="userMapper">
 
     <select id="selectUser" resultType="HMap">
-        SELECT username
+        SELECT id
+        	 , username
         	 , password
         	 , email
         	 , role
+        	 , DATE_FORMAT(reg_dtm, '%Y-%m-%d %H:%i:%s') as reg_dtm
+        	 , pw_fail_cnt
           FROM users
-<!--          WHERE username = #{username} -->
+         WHERE username = #{username}
     </select>
     
     <insert id="insertUser">
@@ -27,4 +30,8 @@
 	    	   , #{email}
 	    )
 	</insert>
+	
+<!-- 	<update id="insertUser"> -->
+	
+<!-- 	</update> -->
 </mapper>

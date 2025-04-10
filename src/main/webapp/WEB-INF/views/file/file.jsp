@@ -220,8 +220,22 @@ function uploadFiles1() {
         return;
     }
     
+    // 파일 개수 제한
     if (files.length > 5) {
         return "파일은 최대 5개까지만 업로드할 수 있습니다.";
+    }
+    
+    // 확장자 제한
+    const allowExt = ['jpg', 'jpeg', 'png', 'gif', 'pdf'];
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileName = file.name;
+        const ext = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
+
+        if (!allowExt.includes(ext)) {
+            alert("허용되지 않은 확장자입니다: " + fileName);
+            return; // 업로드 중단
+        }
     }
 
     $('#progressBarContainer').empty(); // 진행바 영역 초기화
@@ -262,10 +276,9 @@ function uploadFiles1() {
             	if(res == "success"){          		
 	                $bar.removeClass("bg-success").addClass("bg-primary").text("완료");
 	                selectFileList();
-            	} 
-//             	else {
-//             		alert(res);
-//             	}
+            	} else {
+            		alert(res);
+            	}
             },
             error: function () {
                 $bar.removeClass("bg-success").addClass("bg-danger").text("실패");

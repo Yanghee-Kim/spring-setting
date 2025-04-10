@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spring.common.util.SqlManager;
+
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -29,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserService {
     
-    private final SqlSessionTemplate sqlSession;
+	private final SqlManager sqlSession;
     private final PasswordEncoder bCryptPasswordEncoder;
 
     /**

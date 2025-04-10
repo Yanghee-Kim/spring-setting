@@ -18,7 +18,6 @@
     
     <button onclick=goToRegister()>회원가입</button>
 
-
     <!-- 로그인 실패 메시지 표시 -->
     <c:if test="${param.error != null}">
         <p style="color:red;">아이디 또는 비밀번호가 올바르지 않습니다.</p>

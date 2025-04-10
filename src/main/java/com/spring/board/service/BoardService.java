@@ -3,8 +3,11 @@ package com.spring.board.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
+
+import com.spring.common.util.SqlManager;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,8 +31,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardService {
 
-	private final SqlSessionTemplate sqlSession;
-
+	private final SqlManager sqlSession;
+	
 	/**
 	 * 게시판 리스트 조회
 	 * @return

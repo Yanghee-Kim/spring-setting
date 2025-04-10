@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.board.service.BoardService;
+import com.spring.board.service.BoardService2;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,8 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardController {
 	
 	private final BoardService boardService;
+	
+//	private final BoardService2 boardService2;
 
 	/**
 	 * 게시판 페이지 로드
@@ -63,6 +66,7 @@ public class BoardController {
 	@ResponseBody
 	public List<Map<String, Object>> boardList(@RequestParam(required = false) Map<String, Object> inParams) {
 		return boardService.boardList(inParams);
+//		return boardService2.boardList(inParams);
 	}
 	
 	/**

@@ -37,35 +37,34 @@
     <logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="DEBUG" additivity="false">
         <appender-ref ref="console"/>
     </logger>
+    
+    <logger name="org.springframework.web.servlet.view.JstlView" level="ERROR" additivity="false">
+		<appender-ref ref="console"/>
+	</logger>
 
     <!-- SQL Logger -->
-    <logger name="log4jdbc" level="WARN" additivity="false">
+	<logger name="org.apache.ibatis" level="OFF" additivity="false">
+	    <appender-ref ref="console"/>
+	</logger>
+	
+	<logger name="org.mybatis.spring" level="OFF" additivity="false">
+	    <appender-ref ref="console"/>
+	</logger>
+    
+    <!-- log4jdbc -->
+    <logger name="log4jdbc" level="OFF" additivity="false">
         <appender-ref ref="console"/>
     </logger>
+    
+	<!-- jdbc -->
+	<logger name="jdbc" level="OFF" additivity="false">
+	    <appender-ref ref="console"/>
+	</logger>
 
-    <logger name="jdbc.connection" level="WARN" additivity="false">
-        <appender-ref ref="console"/>
-    </logger>
-
-    <logger name="jdbc.audit" level="WARN" additivity="false">
-        <appender-ref ref="console"/>
-    </logger>
-
-    <logger name="jdbc.resultset" level="WARN" additivity="false">
-        <appender-ref ref="console"/>
-    </logger>
-
-    <logger name="jdbc.sqlonly" level="OFF" additivity="false">
-        <appender-ref ref="console"/>
-    </logger>
-
-    <logger name="jdbc.resultsettable" level="OFF" additivity="false">
-        <appender-ref ref="console"/>
-    </logger>
-
-    <logger name="jdbc.sqltiming" level="DEBUG" additivity="false">
-        <appender-ref ref="console"/>
-    </logger>
+	<!-- sql문 + 실행시간 -->
+<!--     <logger name="jdbc.sqltiming" level="DEBUG" additivity="false"> -->
+<!--         <appender-ref ref="console"/> -->
+<!--     </logger> -->
 
     <!-- 기본 로그 레벨 설정 -->
     <root level="DEBUG">
