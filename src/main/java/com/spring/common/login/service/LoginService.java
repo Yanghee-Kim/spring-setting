@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,12 +40,11 @@ public class LoginService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> login(String username, String password, HttpServletRequest request, Model model) {
+	public Map<String, Object> login(Map<String, Object> params, HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> outParams = new HashMap<String, Object>();
+
 		// 사용자 정보 조회
-		Map<String, Object> userInfo = (Map<String, Object>) sqlSession.selectOne("userMapper.selectUser", username);
-		
-		log.debug(">>>>>>>>>>>>>>>>>>>userInfo"+userInfo);
+		Map<String, Object> userInfo = (Map<String, Object>) sqlSession.selectOne("userMapper.selectUser", params);
 
         // 1. 사용자 없음
         if (userInfo == null) {
@@ -52,25 +53,41 @@ public class LoginService {
         }
 
         // 2. 비밀번호 불일치
-        if (!encoder.matches(password, (String) userInfo.get("password"))) {
-            int failCnt = (int) userInfo.get("pw_fail_cnt") + 1;
+        if (!encoder.matches((String) params.get("password"), (String) userInfo.get("password"))) {
+        	Long pwCnt = (Long) userInfo.get("pw_fail_cnt");
+            int failCnt = pwCnt.intValue() + 1;
+            
             userInfo.put("pw_fail_cnt", failCnt);
-
-            if (failCnt > pwFailCnt) {
-            	sqlSession.update("userMapper.updatePwFailCnt", username);
-            	outParams.put("errorMsg","로그인 시도 최대 횟수를 초과하였습니다. ("+failCnt+"번 시도)"+ "\\n 관리자에게 문의하세요.");
+            
+            if (failCnt >= pwFailCnt) {
+            	userInfo.put("status", "LOCKED");
+        		sqlSession.update("userMapper.updatePwFailCntAndStat", userInfo);
+            	outParams.put("errorMsg","비밀번호 "+failCnt+"회 오류로 최대 횟수를 초과하였습니다.\n관리자에게 문의하세요.");
                 return outParams;
             } else {
-            	sqlSession.update("userMapper.updatePwFailCnt", username);
+            	sqlSession.update("userMapper.updatePwFailCntAndStat", userInfo);
             	outParams.put("errorMsg","비밀번호가 일치하지 않습니다.");
                 return outParams;
             }
+        } else {
+        	userInfo.put("pw_fail_cnt", 0);
+        	userInfo.put("status", "ACTIVE");
+        }
+        
+        // 3. 계정 상태 확인
+        String status = (String) userInfo.get("status");
+        if(status.equals("LOCKED")) {
+        	outParams.put("errorMsg","비밀번호 최대 횟수 초과로 계정잠금 상태입니다.\n관리자에게 문의하세요.");
+            return outParams;
         }
 
-        // 3. 로그인 성공 → 실패 카운터 초기화
-        sqlSession.update("userMapper.updatePwFailCnt", username);
+        // 4. 로그인 성공 → 실패 카운터 초기화
+        sqlSession.update("userMapper.updatePwFailCntAndStat", userInfo);
+        
+        HttpSession session = request.getSession(false);
+        session.setAttribute("LOGIN_USER", userInfo);
         
         return outParams;
 	}
-
+    
 }

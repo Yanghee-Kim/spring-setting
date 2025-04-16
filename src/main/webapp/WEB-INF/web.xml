@@ -61,5 +61,9 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     
-    <!-- TODO: xss 추가 -->
+	<session-config>
+		<session-timeout>10</session-timeout> <!-- 10분 -->
+	</session-config>
+	
+    <!-- TODO: xss 추가 할 것 -->
 </web-app>

@@ -43,11 +43,11 @@
 	</logger>
 
     <!-- SQL Logger -->
-	<logger name="org.apache.ibatis" level="OFF" additivity="false">
+	<logger name="org.apache.ibatis" level="DEBUG" additivity="false">
 	    <appender-ref ref="console"/>
 	</logger>
 	
-	<logger name="org.mybatis.spring" level="OFF" additivity="false">
+	<logger name="org.mybatis.spring" level="DEBUG" additivity="false">
 	    <appender-ref ref="console"/>
 	</logger>
     

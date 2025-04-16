@@ -1,5 +1,7 @@
 package com.spring.common.util.interceptor;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,22 +19,30 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 	// preHandle : 컨트롤러 실행 전
 	// postHandle : 컨트롤러 실행 후
 	// afterCompletion : View 렌더링 후
-	
-	// TODO : 현재는 일반 요청일 경우만 구현, ajax 요청일 때도 처리하도록 추가할 것
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    	String requestedWith = request.getHeader("X-Requested-With");
+    	boolean isAjax = "XMLHttpRequest".equals(requestedWith);
+
         // getSession(true) : 세션이 없을 경우 새로 생성 (default)
         // getSession(false) : 세션이 없을 경우 null 반환
     	HttpSession session = request.getSession(false);
     	
-    	log.debug("session>>>>>>>>>>>>>>>>>>>>"+session);
-    	log.debug("session>>>>>>>>>>>>>>>>>>>>"+session.getAttribute("LOGIN_USER"));
-    	
-        if (session == null || session.getAttribute("LOGIN_USER") == null) {
-            response.sendRedirect("/loginPage"); // 로그인 페이지 경로
-            return false; // 컨트롤러로 진입하지 않음
-        }
+    	log.debug("---------------------------------SESSION-------------------------------------");
+    	log.debug("session :: "+session);
         
+    	if (session == null || session.getAttribute("LOGIN_USER") == null) {
+        	if (isAjax) { // ajax일 경우
+        		response.setStatus(440);
+        		response.getWriter().flush();
+        		response.getWriter().close();
+        	} else { // 일반요청일 경우
+        		response.sendRedirect("/loginPage");
+        	}
+        	
+        	return false;
+        }
+
         return true; // 로그인된 사용자만 통과
     }
 }

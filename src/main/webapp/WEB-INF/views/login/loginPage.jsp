@@ -4,28 +4,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<!-- jquery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
 <body>	
-    <form action="/login" method="post">
+<!--     <form id="loginForm" name="loginForm" method="post" action="/login"> -->
+<!--         <label>Username:</label> -->
+<!--         <input type="text" id="username" name="username" required /> -->
+<!--         <label>Password:</label> -->
+<!--         <input type="password" id="password" name="password" required /> -->
+<!--         <button type="submit">Login</button> -->
+<!--     </form> -->
+
+    <form id="loginForm">
         <label>Username:</label>
-        <input type="text" name="username" required />
+        <input type="text" id="username" name="username" required />
         <label>Password:</label>
-        <input type="password" name="password" required />
-        <button type="submit">Login</button>
+        <input type="password" id="password" name="password" required />
+        <button type="button" onclick=login()>Login</button>
     </form>
     
     <button onclick=goToRegister()>회원가입</button>
-
-    <!-- 로그인 실패 메시지 표시 -->
-    <c:if test="${param.error != null}">
-        <p style="color:red;">아이디 또는 비밀번호가 올바르지 않습니다.</p>
-    </c:if>
 </body>
 <script>
-    function goToRegister() {
-        window.location.href = "/registerPage";
-    }
+function goToRegister() {
+    window.location.href = "/registerPage";
+}
+
+function login() {
+	$.ajax({
+		url: '/login',
+		type: 'post',
+		contentType: 'application/json',
+		data: JSON.stringify({
+			username: $('#username').val(),
+			password: $('#password').val()
+		}),
+		success: function(result) {
+			if (result.errorMsg) {
+				alert(result.errorMsg);
+			} else {
+				window.location.href = '/'; // 로그인 성공 → 메인 페이지 이동
+			}
+		},
+		error: function(xhr, status, err) {
+			alert("서버 오류가 발생했습니다.");
+		}
+	});
+}
 </script>
 </html>

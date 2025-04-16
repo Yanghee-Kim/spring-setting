@@ -12,6 +12,7 @@
         	 , role
         	 , DATE_FORMAT(reg_dtm, '%Y-%m-%d %H:%i:%s') as reg_dtm
         	 , pw_fail_cnt
+        	 , status
           FROM users
          WHERE username = #{username}
     </select>
@@ -31,7 +32,10 @@
 	    )
 	</insert>
 	
-<!-- 	<update id="insertUser"> -->
-	
-<!-- 	</update> -->
+	<update id="updatePwFailCntAndStat">
+		UPDATE users
+		   SET pw_fail_cnt = #{pw_fail_cnt}
+		   	 , status = #{status}
+		 WHERE username = #{username}
+	</update>
 </mapper>

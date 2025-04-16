@@ -20,6 +20,18 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 	
 	<script>
+		$.ajaxSetup({
+		    error: function (xhr) {
+		        if (xhr.status === 440) {
+		            alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+		            window.location.href = "/loginPage";
+		        } else {
+					alert("페이지 이동 중 시스템 오류가 발생하였습니다.");
+	            	console.error("AJAX Error:", status, error);
+	            }
+		    }
+		});
+		
 		// center 영역 jsp 이동 함수
 		function movePage(jspPath) {
 		    $.ajax({
@@ -28,11 +40,7 @@
 		    	dataType: "html",
 		    	success : function(html) {
 		    		$("#centerArea").html(html);
-		    	},
-		        error: function (xhr, status, error) {
-					alert("페이지 이동 중 시스템 오류가 발생하였습니다.");
-	            	console.error("AJAX Error:", status, error);
-				}
+		    	}
 		    });
 		}
 	</script>

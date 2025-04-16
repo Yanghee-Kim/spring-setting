@@ -23,19 +23,8 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
 	</context:component-scan>
 	
-	<!-- interceptor -->
-	<!-- 웹 요청 인터셉터 -->
-	<mvc:interceptors>
-	    <mvc:interceptor>
-	        <mvc:mapping path="/**"/> <!-- 인터셉터를 적용할 경로 -->
-	        <mvc:exclude-mapping path="/loginPage"/> <!-- 인터셉터를 제외할 경로 -->
-	        <bean class="com.spring.common.util.interceptor.AuthenticationInterceptor"/>
-	    </mvc:interceptor>
-	</mvc:interceptors>
-	
 	<!-- aop -->
 	<bean id="loggingController" class="com.spring.common.util.aop.LoggingController" />
-<!-- 	<bean id="sqlLoggingController" class="com.spring.common.util.SqlLoggingController" /> -->
 	
 	<!-- 웹 요청 시 aop  -->
 	<aop:config>
@@ -52,7 +41,7 @@
 			   - afterThrowing : 대상 메서드에서 예외 발생 시
 			   - around : 대상 메서드 실행 전/후 전체 감싸기 -->
 			<aop:around method="printMethodName" pointcut-ref="allControlPointCut"/>
-		</aop:aspect>	
+		</aop:aspect>
 	</aop:config>
 
     <!-- View Resolver 설정 -->
@@ -71,4 +60,18 @@
     <!-- 정적 리소스 매핑 (CSS, JS, IMAGE) -->
     <!-- boot에서는 자동 처리 -->
 <!--     <mvc:resources mapping="/resources/**" location="/resources/"/> -->
+
+	<!-- interceptor -->
+	<!-- 웹 요청 인터셉터 -->
+	<mvc:interceptors>
+	    <mvc:interceptor>
+	    	<!-- 인터셉터를 적용할 경로 -->
+	        <mvc:mapping path="/**"/>
+	        
+	        <!-- 인터셉터를 제외할 경로 -->
+	        <mvc:exclude-mapping path="/loginPage"/>
+	        <mvc:exclude-mapping path="/login" />
+	        <bean class="com.spring.common.util.interceptor.AuthenticationInterceptor"/>
+	    </mvc:interceptor>
+	</mvc:interceptors>
 </beans>
