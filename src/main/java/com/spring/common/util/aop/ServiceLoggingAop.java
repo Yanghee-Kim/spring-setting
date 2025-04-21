@@ -8,13 +8,13 @@ import org.springframework.util.StopWatch;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class SqlLoggingController {
+public class ServiceLoggingAop {
 
-	public Object logSql(ProceedingJoinPoint joinPoint) throws Throwable {
+	public Object serviceLog(ProceedingJoinPoint joinPoint) throws Throwable {
         String methodName = joinPoint.getSignature().toShortString();
         Object[] args = joinPoint.getArgs();
 
-        log.debug("[AOP SQL] 호출: {} 파라미터: {}", methodName, Arrays.toString(args));
+        log.debug("[AOP SERVICE] 호출: {} 파라미터: {}", methodName, Arrays.toString(args));
 
         StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
@@ -23,7 +23,7 @@ public class SqlLoggingController {
         
         stopWatch.stop();
         
-        log.debug("[AOP SQL] 완료: {} | 실행 시간: {}ms", methodName, stopWatch.getTotalTimeMillis());
+        log.debug("[AOP SERVICE] 완료: {} | 실행 시간: {}ms", methodName, stopWatch.getTotalTimeMillis());
         return result;
     }
 }

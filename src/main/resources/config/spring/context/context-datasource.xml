@@ -30,7 +30,7 @@
 <!-- 		생성자주입 -->
 <!--         <constructor-arg ref="sessionFactory"/> -->
 <!--     </bean> -->
-    <bean id="sqlManager" class="com.spring.common.util.SqlManager">
+    <bean id="sqlManager" class="com.spring.common.util.dataaccess.SqlManager">
 <!--     	setter 주입 -->
 		<property name="sqlSessionFactory" ref="sessionFactory"/>
     </bean>

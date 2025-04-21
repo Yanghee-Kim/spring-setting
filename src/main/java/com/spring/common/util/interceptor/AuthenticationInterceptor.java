@@ -28,7 +28,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         // getSession(false) : 세션이 없을 경우 null 반환
     	HttpSession session = request.getSession(false);
     	
-    	log.debug("---------------------------------SESSION-------------------------------------");
+    	log.debug("======================================SESSION======================================");
     	log.debug("session :: "+session);
         
     	if (session == null || session.getAttribute("LOGIN_USER") == null) {

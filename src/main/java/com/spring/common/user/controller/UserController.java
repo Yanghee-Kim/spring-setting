@@ -64,12 +64,12 @@ public class UserController {
     }
     
     /**
-     * sql logger 테스트
+     * 사용자 정보 조회
      * @param inParams
      * @return
      */
     @GetMapping("/selectUser")
-    public void selectUser() {
-        userService.selectUser();
+    public Map<String, Object> selectUser() {
+        return userService.selectUser();
     }
 }

@@ -46,7 +46,7 @@ function login() {
 			if (result.errorMsg) {
 				alert(result.errorMsg);
 			} else {
-				window.location.href = '/'; // 로그인 성공 → 메인 페이지 이동
+				window.location.href = '/main'; // 로그인 성공 → 메인 페이지 이동
 			}
 		},
 		error: function(xhr, status, err) {

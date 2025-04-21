@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.spring.common.util.SqlManager;
 
 import lombok.RequiredArgsConstructor;
 

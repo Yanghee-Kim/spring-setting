@@ -22,13 +22,20 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class MainController {
-
+	
     /**
      * 메인 페이지
      */
     @GetMapping("/")
-    public ModelAndView main() {
-        ModelAndView mav = new ModelAndView("main");
-        return mav;
+    public String index() {
+        return "main";
+    }
+
+    /**
+     * 메인 페이지
+     */
+    @GetMapping("/main")
+    public String main() {
+        return "main";
     }
 }

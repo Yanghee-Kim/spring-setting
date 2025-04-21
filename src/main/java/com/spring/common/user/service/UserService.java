@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.spring.common.util.SqlManager;
+import com.spring.common.util.dataaccess.SqlManager;
 
 import lombok.RequiredArgsConstructor;
 
@@ -63,11 +63,12 @@ public class UserService {
     }
     
     /**
-     * 테스트
+     * 사용자 정보 조회
+     * @return
      */
-    public void selectUser() {
-        sqlSession.selectList("userMapper.selectUser");
-
+    @SuppressWarnings("unchecked")
+	public Map<String, Object> selectUser() {
+        return (Map<String, Object>) sqlSession.selectOne("userMapper.selectUser");
     }
 
 }

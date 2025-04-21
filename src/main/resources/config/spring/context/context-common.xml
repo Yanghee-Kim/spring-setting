@@ -14,13 +14,21 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     
-    <!-- sql 호출 시 aop -->
-    <bean id="sqlLoggingController" class="com.spring.common.util.aop.SqlLoggingController" />
-    
+    <!-- service 호출 시 aop -->
+    <bean id="serviceLoggingAop" class="com.spring.common.util.aop.ServiceLoggingAop" />
 	<aop:config>
-		<aop:aspect ref="sqlLoggingController">
+		<aop:aspect ref="serviceLoggingAop">
+			<aop:pointcut expression="execution(* com.spring..*Service.*(..))"  id="servicePointCut"/>
+			<aop:around method="serviceLog" pointcut-ref="servicePointCut"/>
+		</aop:aspect>
+	</aop:config>
+    
+    <!-- sql 호출 시 aop -->
+    <bean id="sqlLoggingAop" class="com.spring.common.util.aop.SqlLoggingAop" />
+	<aop:config>
+		<aop:aspect ref="sqlLoggingAop">
 			<aop:pointcut expression="execution(* com.spring..SqlManager.*(..))"  id="sqlPointCut"/>
-			<aop:around method="logSql" pointcut-ref="sqlPointCut"/>
+			<aop:around method="sqlLog" pointcut-ref="sqlPointCut"/>
 		</aop:aspect>
 	</aop:config>
 

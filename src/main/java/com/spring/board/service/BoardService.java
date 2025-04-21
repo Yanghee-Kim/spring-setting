@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
-import com.spring.common.util.SqlManager;
+import com.spring.common.util.dataaccess.SqlManager;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,7 +38,8 @@ public class BoardService {
 	 * @return
 	 */
 	public List<Map<String, Object>> boardList(Map<String, Object> inParams) {		
-		return sqlSession.selectList("boardMapper.boardList", inParams);
+//		return sqlSession.selectList("boardMapper.boardList", inParams);
+		return sqlSession.selectList("boardMapper.nonExistId", inParams);
 	}
 
 	/**

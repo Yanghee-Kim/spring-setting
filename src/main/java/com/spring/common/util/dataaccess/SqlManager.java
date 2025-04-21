@@ -1,5 +1,4 @@
-package com.spring.common.util;
-
+package com.spring.common.util.dataaccess;
 import java.util.List;
 import java.util.Map;
 

@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.spring.common.util.SqlManager;
+import com.spring.common.util.dataaccess.SqlManager;
 
 import ch.qos.logback.core.model.Model;
 import lombok.RequiredArgsConstructor;
