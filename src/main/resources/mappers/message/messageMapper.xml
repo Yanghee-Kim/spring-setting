@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="messageMapper">
+	<select id="selectI18nMessageList" resultType="Hmap">
+	SELECT id
+		 , msg_cd
+	     , msg_nm
+	     , locale
+	     , reg_dtm
+	  FROM i18n_message	
+	</select>
+
+</mapper>

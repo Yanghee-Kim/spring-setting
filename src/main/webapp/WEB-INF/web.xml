@@ -10,6 +10,16 @@
 <!-- 	<welcome-file-list> -->
 <!-- 		<welcome-file>index.jsp</welcome-file> -->
 <!-- 	</welcome-file-list> -->
+
+	<!-- JSP Include -->
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<page-encoding>UTF-8</page-encoding>
+			<scripting-invalid>false</scripting-invalid>
+			<include-prelude>/WEB-INF/views/layout/taglib.jspf</include-prelude>
+		</jsp-property-group>
+	</jsp-config>
 	
     <!-- dispatcher -->
     <servlet>

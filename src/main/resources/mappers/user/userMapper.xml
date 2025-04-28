@@ -38,4 +38,25 @@
 		   	 , status = #{status}
 		 WHERE username = #{username}
 	</update>
+	
+	<update id="updateSessionId">
+		UPDATE users
+		   SET session_id = #{session_id}
+		 WHERE username = #{username}
+	</update>
+	
+	<insert id="insertLoginHist">
+	    INSERT 
+	      INTO LOGIN_HISTORY (
+	          LOGIN_USER
+	        , LOGIN_IP
+	        , LOGIN_STATUS
+	        , LOGIN_MESSAGE
+	    ) VALUES (
+	          #{LOGIN_USER}
+	        , #{LOGIN_IP}
+	        , #{LOGIN_STATUS}
+	        , #{LOGIN_MESSAGE}
+	    )
+	</insert>
 </mapper>

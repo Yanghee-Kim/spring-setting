@@ -16,10 +16,10 @@
 	  <h5 class="text-white">📂 메뉴</h5>
 	  <ul class="list-group">
 	    <li class="list-group-item">
-	      <button onclick="movePage('/boardPage')">📝 게시판</button>
+	      <button onclick="movePage('/boardPage')">📝 <spring:message code="board"></spring:message></button>
 	    </li>
 	    <li class="list-group-item">
-	      <button onclick="movePage('/filePage')">📝 파일업로드 / 다운로드</button>
+	      <button onclick="movePage('/filePage')">📝 <spring:message code="download"></spring:message></button>
 	    </li>
 	  </ul>
 	</div>

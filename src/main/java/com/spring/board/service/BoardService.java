@@ -38,8 +38,7 @@ public class BoardService {
 	 * @return
 	 */
 	public List<Map<String, Object>> boardList(Map<String, Object> inParams) {		
-//		return sqlSession.selectList("boardMapper.boardList", inParams);
-		return sqlSession.selectList("boardMapper.nonExistId", inParams);
+		return sqlSession.selectList("boardMapper.boardList", inParams);
 	}
 
 	/**

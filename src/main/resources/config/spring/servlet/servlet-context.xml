@@ -75,5 +75,14 @@
 	        <mvc:exclude-mapping path="/login" />
 	        <bean class="com.spring.common.util.interceptor.AuthenticationInterceptor"/>
 	    </mvc:interceptor>
+	    
+	    <!-- localechangeinterceptor -->
+<!-- 	    <mvc:interceptor> -->
+<!-- 	        <mvc:mapping path="/**"/> -->
+	        
+<!-- 	        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"> -->
+<!-- 	            <property name="paramName" value="lang"/> -->
+<!-- 	        </bean> -->
+<!-- 	    </mvc:interceptor> -->
 	</mvc:interceptors>
 </beans>

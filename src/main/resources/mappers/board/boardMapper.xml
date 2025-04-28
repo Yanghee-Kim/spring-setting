@@ -5,7 +5,7 @@
 <mapper namespace="boardMapper">
 
     <select id="boardList" resultType="HMap">
-	select id
+	SELECT id
 		 , title
 	     , writer
 	     , content
@@ -13,21 +13,21 @@
 	     , date_format(reg_dtm, '%Y-%m-%d %H:%i:%s') as upd_dtm
 	     , view_count
 	     , is_deleted
-	  from board
-	 where 1=1
-	   and is_deleted = 0
+	  FROM board
+	 WHERE 1=1
+	   AND is_deleted = 0
 	  <if test="id != '' and id != null">
-	   and id = #{id}
+	   AND id = #{id}
 	  </if>
     </select>
     
     <insert id="insertBoard">
-     insert 
-       into board (
+     INSERT 
+       INTO board (
 	      title
 	    , content
 	    , writer
-	  ) values (
+	  ) VALUES (
 	      #{title}
 	    , #{content}
 	    , #{writer}
@@ -35,23 +35,23 @@
     </insert>
     
     <update id="updateBoard">
-    update board
-	   set title      = #{title}
+    UPDATE board
+	   SET title      = #{title}
 	     , content    = #{content}
 	     , writer     = #{writer}
 	     , upd_dtm    = now()
-	where id = #{id}
+	WHERE id = #{id}
     </update>
     
     <update id="deleteBoard">
-    update board
-	   set is_deleted = 1
-	where id = #{id}
+    UPDATE board
+	   SET is_deleted = 1
+	 WHERE id = #{id}
     </update>
     
     <update id="updateViewCount">
-    update board
-	   set view_count = #{view_count} + 1
-	where id = #{id}
+    UPDATE board
+	   SET view_count = #{view_count} + 1
+	 WHERE id = #{id}
     </update>
 </mapper>

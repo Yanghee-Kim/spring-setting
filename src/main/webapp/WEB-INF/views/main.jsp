@@ -58,6 +58,8 @@
 	</style>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/layout/taglib.jspf" %>
+
 <div class="container-fluid">
     <!-- Header -->
     <div class="row bg-dark text-white">

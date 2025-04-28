@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <div>
   <div class="d-flex justify-content-between align-items-center mb-2">
     <h4>📝 게시판</h4>

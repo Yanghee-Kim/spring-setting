@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 프로퍼티 방식으로 했을 경우 -->
+	<!-- ReloadableResourceBundleMessageSource : .properties 기반 메시지를 처리하는 Spring 기본 구현체 -->
+<!-- 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"> -->
+<!-- 	    다국어 메시지 파일 경로 (확장자 및 언어코드 제외) -->
+<!-- 	    <property name="basename" value="classpath:config/properties/messages" /> -->
+<!-- 	    인코딩 -->
+<!-- 	    <property name="defaultEncoding" value="UTF-8" /> -->
+<!-- 	    파일 변경 체크 주기(초 단위) -->
+<!-- 	    <property name="cacheSeconds" value="5" /> -->
+<!-- 	    메시지가 없을 경우 key를 그대로 표시 -->
+<!-- 	    <property name="useCodeAsDefaultMessage" value="true" /> -->
+<!-- 	    파일을 찾지 못할 경우 시스템 설정 Locale을 사용할 것인지에 대한 유무 -->
+<!-- 	    <property name="fallbackToSystemLocale" value="false"/> -->
+<!-- 	</bean> -->
+
+	<!-- DB 방식으로 했을 경우 -->
+	<!-- 둘로 나눈 이유는 관심사의 분리를 위해, 어떻게 가져올 것인가 와 어떻게 제공할 것인가에 대한..-->
+	<!-- MessageResourceService : DB에서 다국어 메시지를 가져오는 로직 담당 -->    
+	<bean id="messageResourceService" class="com.spring.common.util.message.MessageResourceService">
+		<property name="sqlManager" ref="sqlManager" />
+    </bean>
+    
+   	<bean id="propertiesMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:config/properties/messages" />
+	    <property name="defaultEncoding" value="UTF-8" />	    
+	    <property name="cacheSeconds" value="5" />
+	    <property name="useCodeAsDefaultMessage" value="true" />
+	    <property name="fallbackToSystemLocale" value="false"/>
+	</bean>
+	
+	<!-- DatabaseMessageSource : Spring의 국제화 메시지 처리 인터페이스 구현체 -->
+	<bean id="messageSource" class="com.spring.common.util.message.DatabaseMessageSource">
+	    <constructor-arg ref="messageResourceService"/>
+	    <property name="parentMessageSource" ref="propertiesMessageSource"/>
+	</bean>
+
+	<!-- MessageSourceAccessor : 코드에서 메시지를 쉽게 가져올 수 있도록 도와주는 유틸 (컨트롤러, 서비스에서 사용할 때) -> 선택사항 -->
+    <bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
+        <constructor-arg ref="messageSource" />
+    </bean>
+
+	<!-- localeResolver -->
+<!-- 	AceeptHeaderLocaleResolver (default) : http header로 locale을 보내고 세팅 -->
+<!-- 	CookieLocaleResolver : 쿠키에 locale 값 저장 -->
+<!-- 	SessionLocaleResolver : 세션에 locale 값 저장 -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+	    <property name="defaultLocale" value="ko"/>
+	</bean>
+</beans>
